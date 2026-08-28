@@ -20,7 +20,7 @@ export const createOrder = createAsyncThunk(
   'order/create',
   async (ingredients: string[]) => {
     const response = await orderBurgerApi(ingredients);
-    return { ...response, ingredients }; // сохраняем массив ингредиентов
+    return { ...response, ingredients };
   }
 );
 
@@ -49,7 +49,7 @@ const orderSlice = createSlice({
           createdAt: action.payload.order.createdAt,
           updatedAt: action.payload.order.updatedAt,
           number: action.payload.order.number,
-          ingredients: action.payload.ingredients, // используем сохранённый массив
+          ingredients: action.payload.ingredients,
         } as TOrder;
         state.orderNumber = action.payload.order.number;
       })

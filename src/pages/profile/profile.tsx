@@ -8,6 +8,7 @@ export const Profile: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.user.loading);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -18,8 +19,10 @@ export const Profile: FC = () => {
   const [updateUserError, setUpdateUserError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+    if (!user && !loading) {
+      dispatch(getUser());
+    }
+  }, [dispatch, user, loading]); // <- Добавлены зависимости
 
   useEffect(() => {
     if (user) {
@@ -37,20 +40,19 @@ export const Profile: FC = () => {
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
-  e.preventDefault();
-  setUpdateUserError(undefined);
-  const updatedData: { name?: string; email?: string; password?: string } = {};
-  if (formValue.name !== user?.name) updatedData.name = formValue.name;
-  if (formValue.email !== user?.email) updatedData.email = formValue.email;
-  if (formValue.password) updatedData.password = formValue.password;
-  
-  dispatch(updateUser(updatedData))
-    .unwrap()
-    .catch((err) => {
-      setUpdateUserError(err.message || 'Ошибка обновления профиля');
-    });
-};
-
+    e.preventDefault();
+    setUpdateUserError(undefined);
+    const updatedData: { name?: string; email?: string; password?: string } = {};
+    if (formValue.name !== user?.name) updatedData.name = formValue.name;
+    if (formValue.email !== user?.email) updatedData.email = formValue.email;
+    if (formValue.password) updatedData.password = formValue.password;
+    
+    dispatch(updateUser(updatedData))
+      .unwrap()
+      .catch((err) => {
+        setUpdateUserError(err.message || 'Ошибка обновления профиля');
+      });
+  };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
