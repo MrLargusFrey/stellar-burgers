@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { 
-  loginUserApi, 
-  registerUserApi, 
-  getUserApi, 
-  updateUserApi, 
+import {
+  loginUserApi,
+  registerUserApi,
+  getUserApi,
+  updateUserApi,
   logoutApi,
   TLoginData,
-  TRegisterData 
+  TRegisterData
 } from '@api';
 import { TUser } from '@utils-types';
 import { setCookie, deleteCookie } from '../../utils/cookie';
@@ -15,6 +15,7 @@ interface UserState {
   user: TUser | null;
   isAuthenticated: boolean;
   loading: boolean;
+  isAuthChecked: boolean;
   error: string | null;
 }
 
@@ -22,6 +23,7 @@ const initialState: UserState = {
   user: null,
   isAuthenticated: false,
   loading: false,
+  isAuthChecked: false,
   error: null,
 };
 
@@ -116,12 +118,15 @@ const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.isAuthChecked = true;
         state.user = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(getUser.rejected, (state) => {
         state.loading = false;
+        state.isAuthChecked = true;
         state.isAuthenticated = false;
+        state.user = null;
       })
       // Update user
       .addCase(updateUser.pending, (state) => {

@@ -9,7 +9,6 @@ export const Login: FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -17,7 +16,6 @@ export const Login: FC = () => {
     dispatch(loginUser({ email, password }))
       .unwrap()
       .then(() => {
-        navigate('/');
       })
       .catch((err) => {
         setError(err.message || 'Ошибка входа');

@@ -9,9 +9,9 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute = ({ children, onlyUnAuth = false }: ProtectedRouteProps) => {
   const location = useLocation();
-  const { user, isAuthenticated, loading } = useSelector((state) => state.user);
+  const { user, isAuthenticated, isAuthChecked } = useSelector((state) => state.user);
 
-  if (loading) {
+  if (!isAuthChecked) {
     return <Preloader />;
   }
 

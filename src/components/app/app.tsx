@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
+import { getUser } from '../../services/slices/userSlice';
 import { AppHeader } from '@components';
 import { Preloader } from '@ui';
 import { Modal } from '@components';
@@ -30,6 +31,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(getUser());
   }, [dispatch]);
 
   const handleModalClose = () => {
@@ -124,6 +126,15 @@ const App = () => {
           }
         />
 
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
         <Route path='*' element={<NotFound404 />} />
@@ -145,6 +156,16 @@ const App = () => {
               <Modal title='Детали заказа' onClose={handleModalClose}>
                 <OrderInfo />
               </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={handleModalClose}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

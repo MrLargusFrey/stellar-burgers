@@ -8,7 +8,6 @@ export const Profile: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
-  const loading = useSelector((state) => state.user.loading);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -19,18 +18,12 @@ export const Profile: FC = () => {
   const [updateUserError, setUpdateUserError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!user && !loading) {
-      dispatch(getUser());
-    }
-  }, [dispatch, user, loading]); // <- Добавлены зависимости
-
-  useEffect(() => {
     if (user) {
-      setFormValue((prevState) => ({
-        ...prevState,
+      setFormValue({
         name: user.name,
-        email: user.email
-      }));
+        email: user.email,
+        password: ''
+      });
     }
   }, [user]);
 
