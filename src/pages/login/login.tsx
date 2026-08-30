@@ -15,8 +15,7 @@ export const Login: FC = () => {
     setError('');
     dispatch(loginUser({ email, password }))
       .unwrap()
-      .then(() => {
-      })
+      .then(() => {})
       .catch((err) => {
         setError(err.message || 'Ошибка входа');
       });

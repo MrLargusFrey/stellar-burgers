@@ -15,16 +15,13 @@ const initialState: FeedState = {
   total: 0,
   totalToday: 0,
   isLoading: false,
-  error: null,
+  error: null
 };
 
-export const fetchFeeds = createAsyncThunk(
-  'feed/fetch',
-  async () => {
-    const response = await getFeedsApi();
-    return response;
-  }
-);
+export const fetchFeeds = createAsyncThunk('feed/fetch', async () => {
+  const response = await getFeedsApi();
+  return response;
+});
 
 const feedSlice = createSlice({
   name: 'feed',
@@ -46,7 +43,7 @@ const feedSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка загрузки ленты заказов';
       });
-  },
+  }
 });
 
 export default feedSlice.reducer;

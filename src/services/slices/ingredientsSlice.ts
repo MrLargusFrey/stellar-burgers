@@ -8,10 +8,10 @@ interface IngredientsState {
   error: string | null;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   data: [],
   loading: false,
-  error: null,
+  error: null
 };
 
 export const fetchIngredients = createAsyncThunk(
@@ -40,7 +40,7 @@ const ingredientsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Ошибка загрузки ингредиентов';
       });
-  },
+  }
 });
 
 export default ingredientsSlice.reducer;

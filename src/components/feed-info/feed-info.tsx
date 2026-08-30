@@ -13,7 +13,7 @@ export const FeedInfo: FC = () => {
   const orders = useSelector((state) => state.feed.orders);
   const feed = {
     total: useSelector((state) => state.feed.total),
-    totalToday: useSelector((state) => state.feed.totalToday),
+    totalToday: useSelector((state) => state.feed.totalToday)
   };
 
   const readyOrders = getOrders(orders, 'done');

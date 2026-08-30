@@ -24,7 +24,7 @@ const initialState: UserState = {
   isAuthenticated: false,
   loading: false,
   isAuthChecked: false,
-  error: null,
+  error: null
 };
 
 export const loginUser = createAsyncThunk(
@@ -47,13 +47,10 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk(
-  'user/get',
-  async () => {
-    const response = await getUserApi();
-    return response.user;
-  }
-);
+export const getUser = createAsyncThunk('user/get', async () => {
+  const response = await getUserApi();
+  return response.user;
+});
 
 export const updateUser = createAsyncThunk(
   'user/update',
@@ -63,14 +60,11 @@ export const updateUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  'user/logout',
-  async () => {
-    await logoutApi();
-    deleteCookie('accessToken');
-    localStorage.removeItem('refreshToken');
-  }
-);
+export const logoutUser = createAsyncThunk('user/logout', async () => {
+  await logoutApi();
+  deleteCookie('accessToken');
+  localStorage.removeItem('refreshToken');
+});
 
 const userSlice = createSlice({
   name: 'user',
@@ -79,7 +73,7 @@ const userSlice = createSlice({
     clearUser: (state) => {
       state.user = null;
       state.isAuthenticated = false;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -146,7 +140,7 @@ const userSlice = createSlice({
         state.user = null;
         state.isAuthenticated = false;
       });
-  },
+  }
 });
 
 export const { clearUser } = userSlice.actions;

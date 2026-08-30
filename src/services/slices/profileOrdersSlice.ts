@@ -11,7 +11,7 @@ export interface ProfileOrdersState {
 const initialState: ProfileOrdersState = {
   orders: [],
   isLoading: false,
-  error: null,
+  error: null
 };
 
 export const fetchProfileOrders = createAsyncThunk(
@@ -40,7 +40,7 @@ const profileOrdersSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка загрузки истории заказов';
       });
-  },
+  }
 });
 
 export default profileOrdersSlice.reducer;

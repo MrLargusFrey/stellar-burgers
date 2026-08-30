@@ -26,7 +26,9 @@ export const ProfileOrders: FC = () => {
   };
 
   if (isLoading) {
-    return <div className="text text_type_main-medium">Загрузка заказов...</div>;
+    return (
+      <div className='text text_type_main-medium'>Загрузка заказов...</div>
+    );
   }
 
   return <ProfileOrdersUI orders={orders} handleLogout={handleLogout} />;

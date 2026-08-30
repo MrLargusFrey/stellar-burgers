@@ -12,7 +12,7 @@ export const rootReducer = combineReducers({
   burgerConstructor: constructorReducer,
   order: orderReducer,
   feed: feedReducer,
-  profileOrders: profileOrdersReducer,
+  profileOrders: profileOrdersReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

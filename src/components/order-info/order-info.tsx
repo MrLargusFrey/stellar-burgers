@@ -10,7 +10,7 @@ export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
   const [orderData, setOrderData] = useState<TOrder | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const ingredients = useSelector((state) => state.ingredients.data);
 
   useEffect(() => {
@@ -73,7 +73,9 @@ export const OrderInfo: FC = () => {
   }
 
   if (!orderInfo) {
-    return <div className="text text_type_main-medium pt-10">Заказ не найден</div>;
+    return (
+      <div className='text text_type_main-medium pt-10'>Заказ не найден</div>
+    );
   }
 
   return <OrderInfoUI orderInfo={orderInfo} />;

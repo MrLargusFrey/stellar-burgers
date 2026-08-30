@@ -1,7 +1,11 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { getUser, updateUser, logoutUser } from '../../services/slices/userSlice';
+import {
+  getUser,
+  updateUser,
+  logoutUser
+} from '../../services/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const Profile: FC = () => {
@@ -15,7 +19,9 @@ export const Profile: FC = () => {
     password: ''
   });
 
-  const [updateUserError, setUpdateUserError] = useState<string | undefined>(undefined);
+  const [updateUserError, setUpdateUserError] = useState<string | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (user) {
@@ -35,11 +41,12 @@ export const Profile: FC = () => {
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setUpdateUserError(undefined);
-    const updatedData: { name?: string; email?: string; password?: string } = {};
+    const updatedData: { name?: string; email?: string; password?: string } =
+      {};
     if (formValue.name !== user?.name) updatedData.name = formValue.name;
     if (formValue.email !== user?.email) updatedData.email = formValue.email;
     if (formValue.password) updatedData.password = formValue.password;
-    
+
     dispatch(updateUser(updatedData))
       .unwrap()
       .catch((err) => {

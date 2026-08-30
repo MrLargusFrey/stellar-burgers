@@ -13,7 +13,7 @@ const initialState: OrderState = {
   order: null,
   orderNumber: null,
   isLoading: false,
-  error: null,
+  error: null
 };
 
 export const createOrder = createAsyncThunk(
@@ -32,7 +32,7 @@ const orderSlice = createSlice({
       state.order = null;
       state.orderNumber = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -49,7 +49,7 @@ const orderSlice = createSlice({
           createdAt: action.payload.order.createdAt,
           updatedAt: action.payload.order.updatedAt,
           number: action.payload.order.number,
-          ingredients: action.payload.ingredients,
+          ingredients: action.payload.ingredients
         } as TOrder;
         state.orderNumber = action.payload.order.number;
       })
@@ -57,7 +57,7 @@ const orderSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка создания заказа';
       });
-  },
+  }
 });
 
 export const { clearOrder } = orderSlice.actions;

@@ -17,11 +17,11 @@ export const Feed: FC = () => {
   }
 
   return (
-    <FeedUI 
-      orders={orders} 
+    <FeedUI
+      orders={orders}
       handleGetFeeds={() => {
         dispatch(fetchFeeds());
-      }} 
+      }}
     />
   );
 };

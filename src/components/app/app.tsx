@@ -27,7 +27,11 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
 
-  const { data: ingredients, loading, error } = useSelector((state) => state.ingredients);
+  const {
+    data: ingredients,
+    loading,
+    error
+  } = useSelector((state) => state.ingredients);
 
   useEffect(() => {
     dispatch(fetchIngredients());

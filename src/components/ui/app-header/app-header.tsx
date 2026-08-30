@@ -22,8 +22,12 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
               `${styles.link} ${isActive ? styles.active : ''}`
             }
           >
-            <BurgerIcon type={location.pathname === '/' ? 'primary' : 'secondary'} />
-            <p className={`text text_type_main-default ml-2 mr-10 ${location.pathname === '/' ? styles.active : ''}`}>
+            <BurgerIcon
+              type={location.pathname === '/' ? 'primary' : 'secondary'}
+            />
+            <p
+              className={`text text_type_main-default ml-2 mr-10 ${location.pathname === '/' ? styles.active : ''}`}
+            >
               Конструктор
             </p>
           </NavLink>
@@ -33,8 +37,12 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
               `${styles.link} ${isActive ? styles.active : ''}`
             }
           >
-            <ListIcon type={location.pathname === '/feed' ? 'primary' : 'secondary'} />
-            <p className={`text text_type_main-default ml-2 ${location.pathname === '/feed' ? styles.active : ''}`}>
+            <ListIcon
+              type={location.pathname === '/feed' ? 'primary' : 'secondary'}
+            />
+            <p
+              className={`text text_type_main-default ml-2 ${location.pathname === '/feed' ? styles.active : ''}`}
+            >
               Лента заказов
             </p>
           </NavLink>
@@ -56,8 +64,12 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
               `${styles.link} ${isActive ? styles.active : ''}`
             }
           >
-            <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'} />
-            <p className={`text text_type_main-default ml-2 ${location.pathname === '/profile' ? styles.active : ''}`}>
+            <ProfileIcon
+              type={location.pathname === '/profile' ? 'primary' : 'secondary'}
+            />
+            <p
+              className={`text text_type_main-default ml-2 ${location.pathname === '/profile' ? styles.active : ''}`}
+            >
               {userName || 'Личный кабинет'}
             </p>
           </NavLink>
