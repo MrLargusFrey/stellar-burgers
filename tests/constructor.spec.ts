@@ -1,45 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-const mockIngredients = {
-  success: true,
-  data: [
-    {
-      _id: '643d69a5c3f7b9001cfa093c',
-      name: 'Краторная булка N-200i',
-      type: 'bun',
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: 'https://code.s3.yandex.net/react/code/bun-01.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/bun-01-large.png'
-    },
-    {
-      _id: '643d69a5c3f7b9001cfa0940',
-      name: 'Сыр с астероидной плесенью',
-      type: 'main',
-      proteins: 84,
-      fat: 48,
-      carbohydrates: 420,
-      calories: 3377,
-      price: 4142,
-      image: 'https://code.s3.yandex.net/react/code/cheese.png',
-      image_mobile: 'https://code.s3.yandex.net/react/code/cheese-mobile.png',
-      image_large: 'https://code.s3.yandex.net/react/code/cheese-large.png'
-    }
-  ]
-};
-
 test.describe('Тестирование конструктора бургера', () => {
   test.beforeEach(async ({ page }) => {
-    await page.route('**/api/ingredients', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(mockIngredients)
-      });
+    await page.routeFromHAR('./tests/hars/api.har', {
+      url: '**/api/**',
+      update: false
     });
 
     await page.goto('http://localhost:4000');
@@ -116,7 +81,6 @@ test.describe('Тестирование конструктора бургера'
 
     await page.reload();
     await page.waitForLoadState('domcontentloaded');
-    await page.waitForSelector('li', { hasText: 'Краторная булка N-200i' }, { timeout: 10000 });
 
     const bun = page.locator('li', { hasText: 'Краторная булка N-200i' });
     await bun.locator('button', { hasText: 'Добавить' }).click();
@@ -136,7 +100,6 @@ test.describe('Тестирование конструктора бургера'
     await closeButton.click();
     await expect(modal).toBeHidden({ timeout: 5000 });
 
-    // Проверяем, что конструктор пуст
     const emptyConstructor = page.locator('.text', { hasText: 'Выберите булки' }).first();
     await expect(emptyConstructor).toBeVisible({ timeout: 5000 });
   });
