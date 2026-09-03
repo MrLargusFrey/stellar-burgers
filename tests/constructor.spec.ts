@@ -32,7 +32,7 @@ async function ensureLoggedIn(page) {
 test.describe('Тестирование конструктора бургера', () => {
   test.beforeEach(async ({ page }) => {
     await page.routeFromHAR('./tests/hars/api.har', {
-      url: '/api/**',
+      url: '**/api/**',
       update: false
     });
 
@@ -44,12 +44,12 @@ test.describe('Тестирование конструктора бургера'
       timeout: 10000
     });
 
-    const ingredient = page.locator('li', { hasText: 'Сыр с астероидной плесенью' });
+    const ingredient = page.locator('li', { hasText: 'Биокотлета из марсианской Магнолии' });
     const addButton = ingredient.locator('button', { hasText: 'Добавить' });
     await addButton.click();
 
     const constructorIngredient = page.locator('.constructor-element', {
-      hasText: 'Сыр с астероидной плесенью'
+      hasText: 'Биокотлета из марсианской Магнолии'
     });
     await expect(constructorIngredient).toBeVisible();
   });
@@ -99,11 +99,11 @@ test.describe('Тестирование конструктора бургера'
     await expect(constructorBun).toBeVisible({ timeout: 5000 });
     console.log('✅ Булка добавлена в конструктор.');
 
-    const ingredient = page.locator('li', { hasText: 'Сыр с астероидной плесенью' });
+    const ingredient = page.locator('li', { hasText: 'Биокотлета из марсианской Магнолии' });
     const addIngredientButton = ingredient.locator('button', { hasText: 'Добавить' });
     await addIngredientButton.click();
 
-    const constructorIngredient = page.locator('.constructor-element', { hasText: 'Сыр с астероидной плесенью' });
+    const constructorIngredient = page.locator('.constructor-element', { hasText: 'Биокотлета из марсианской Магнолии' });
     await expect(constructorIngredient).toBeVisible({ timeout: 5000 });
     console.log('✅ Начинка добавлена.');
 
@@ -116,7 +116,7 @@ test.describe('Тестирование конструктора бургера'
 
     const modal = page.getByTestId('modal');
     await expect(modal).toBeVisible({ timeout: 10000 });
-    await expect(modal).toHaveText(/\d{5,6}/, { timeout: 30000 });
+    await expect(modal).toHaveText(/109639/, { timeout: 10000 });
 
     const closeButton = page.getByTestId('modal-close');
     await closeButton.click();
